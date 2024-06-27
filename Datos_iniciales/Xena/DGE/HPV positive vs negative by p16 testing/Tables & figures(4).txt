@@ -1,0 +1,39 @@
+* Gráfico de control de calidad (QC): Análisis de la expresión génica total
+El análisis de la expresión génica total calcula y muestra la expresión génica total de cada muestra del conjunto de datos de expresión génica, lo que facilita la evaluación de la calidad general de los datos.
+Figura 1. Expresión génica total de cada muestra. La figura contiene un gráfico de barras interactivo que muestra la expresión génica total (suma) asignada a cada muestra del conjunto de datos. Para obtener más información sobre cada muestra, pase el ratón por encima de las barras.
+
+* Visualización de muestras
+El análisis de componentes principales (PCA) (Clark et al. 2011) es una técnica estadística utilizada para identificar patrones globales en conjuntos de datos de alta dimensión. Se utiliza habitualmente para explorar la similitud de muestras biológicas en conjuntos de datos de expresión génica. Para ello, los valores de expresión génica se transforman en Componentes Principales (PC), un conjunto de características linealmente no correlacionadas que representan las fuentes más relevantes de varianza en los datos, y posteriormente se visualizan mediante un gráfico de dispersión.
+Figura 2. Gráfico PCA 3D para las muestras, utilizando los 2500 genes con mayor varianza. La figura muestra un gráfico de dispersión tridimensional interactivo de los datos. Cada punto representa una muestra de expresión génica. Las muestras con perfiles de expresión génica similares están más próximas en el espacio tridimensional. Si se proporciona, los grupos de muestras se indican utilizando diferentes colores, lo que permite una interpretación más fácil de los resultados.
+
+* Expresión génica diferencial con Limma-Voom
+Las firmas de expresión génica son alteraciones en los patrones de expresión génica que se producen como resultado de perturbaciones celulares como tratamientos farmacológicos, knock-downs de genes o enfermedades. Pueden cuantificarse mediante métodos de expresión génica diferencial (DGE) (Ritchie et al. 2015, Clark et al. 2014), que comparan la expresión génica entre dos grupos de muestras para identificar genes cuya expresión se ve alterada significativamente en la perturbación.
+Tabla 5. Genes expresados diferencialmente entre "Positive" y "Negative" usando limma_voom. La figura muestra una tabla navegable que contiene la firma de expresión génica generada a partir de un análisis de expresión génica diferencial. Cada fila de la tabla representa un gen; las columnas muestran las medidas estimadas de expresión diferencial.
+
+* Positive vs. Negative
+Información. Datos transformados logarítmicamente. Se aplica la exponenciación de base 2
+Figura 3. Diagrama de volcán para "Positive" frente a "Negative". La figura contiene un diagrama de dispersión interactivo que muestra el log2 del cambio de pliegue ("fold change") y la significación estadística de cada gen, calculada mediante la realización de un análisis de expresión génica diferencial. Los genes con logFC > 1,5 y p-valor < 0,05 en rojo y los genes con logFC < -1,5 y p-valor < 0,05 en azul. Para obtener información adicional sobre cada gen, pase el ratón sobre él.
+
+* Enrichment Analysis using Enrichr
+El análisis de enriquecimiento es un procedimiento estadístico utilizado para identificar términos biológicos sobrerrepresentados en un determinado conjunto de genes. Estos incluyen vías de señalización, funciones moleculares, enfermedades y una amplia variedad de otros términos biológicos obtenidos mediante la integración del conocimiento previo de la función génica a partir de múltiples recursos. Enrichr (Kuleshov et al. 2016) es una aplicación web que permite a los usuarios realizar análisis de enriquecimiento utilizando una gran colección de bibliotecas de conjuntos de genes y varios enfoques interactivos para mostrar los resultados del enriquecimiento.
+Resultado del análisis de enriquecimiento: Positive vs. Negative (Positive-up)
+https://maayanlab.cloud/Enrichr/enrich?dataset=18823c7a92d05a55a7b04d5e21c72cfe
+Resultado del análisis de enriquecimiento: Positive vs. Negative (Positive-down)
+https://maayanlab.cloud/Enrichr/enrich?dataset=d16d79f2775b8fe103e1576ef4ca6c33
+Tabla 6. La tabla muestra enlaces a Enrichr que contienen los resultados de los análisis de enriquecimiento generados mediante el análisis de los genes regulados al alza y a la baja a partir de un análisis de expresión diferencial. Haciendo clic en estos enlaces, los usuarios pueden explorar interactivamente y descargar los resultados de enriquecimiento del sitio web de Enrichr.
+
+* Análisis de enriquecimiento de GO
+Gene Ontology (GO) (Ashburner et al. 2000) es una importante iniciativa bioinformática destinada a unificar la representación de los atributos de los genes en todas las especies. Contiene una gran colección de asociaciones validadas experimentalmente y predichas entre genes y términos biológicos. Enrichr puede aprovechar esta información para identificar los procesos biológicos, las funciones moleculares y los componentes celulares que están sobrerrepresentados en los genes regulados al alza y a la baja identificados al comparar dos grupos de muestras.
+Figura 4. Resultados del análisis de enriquecimiento para "Positive" fente a "Negative" en Gene Ontology. La figura contiene gráficos de barras interactivos que muestran los resultados del análisis de enriquecimiento de Gene Ontology generado mediante Enrichr. El eje x indica el -log10(P-valor) para cada término. Los términos significativos aparecen resaltados en negrita. Se puede obtener información adicional sobre los resultados del enriquecimiento pasando el ratón por encima de cada barra.
+
+* Análisis de enriquecimiento de rutas
+Las rutas biológicas son secuencias de interacciones entre compuestos bioquímicos que desempeñan un papel clave en la determinación del comportamiento celular. Bases de datos como KEGG (Kanehisa et al. 2000), Reactome (Croft et al. 2014) y WikiPathways (Kelder et al. 2012) contienen un gran número de asociaciones entre dichas vías y genes. Enrichr puede aprovechar esta información para identificar las rutas biológicas que están sobrerrepresentadas en los genes regulados al alza y a la baja identificados al comparar dos grupos de muestras.
+Figura 5. Resultados del análisis de enriquecimiento para "Positive" fente a "Negative" en KEGG Pathways, WikiPathways y Reactome Pathways. La figura contiene gráficos de barras interactivos que muestran los resultados del análisis de enriquecimiento de Gene Ontology generado utilizando Enrichr. El eje x indica el -log10(valor P) para cada término. Los términos significativos aparecen resaltados en negrita. Se puede obtener información adicional sobre los resultados del enriquecimiento pasando el ratón por encima de cada barra.
+
+* Pequeñas moléculas candidatas de LINCS L1000
+Consulta L1000FWD
+El conjunto de datos LINCS L1000 es una colección de más de un millón de firmas de expresión génica creadas a partir de líneas celulares humanas tratadas con más de 20 000 moléculas pequeñas y fármacos. Esta tubería utiliza L1000FWD (Wang et al. 2018) para tomar la firma de expresión génica diferencial calculada en esta tubería y consultar las firmas de expresión en el conjunto de datos L1000 para las firmas que son similares u opuestas, lo que le permite encontrar pequeñas moléculas y fármacos candidatos que pueden imitar o revertir su firma.
+L1000FWD para "Positive" fente a "Negative"
+https://maayanlab.cloud/l1000fwd/vanilla/result/653697ccc99977002d371fda
+Tabla 7. Resultados de L1000FWD: Firmas similares
+Tabla 8. Resultados de L1000FWD: Firmas opuestas

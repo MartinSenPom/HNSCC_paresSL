@@ -1,0 +1,17 @@
+References
+Agarwal, Vikram, et al. "Predicting effective microRNA target sites in mammalian mRNAs." elife 4 (2015): e05005.
+Ashburner, M., Ball, C.A., Blake, J.A., Botstein, D., Butler, H., Cherry, J.M., Davis, A.P., Dolinski, K., Dwight, S.S. and Eppig, J.T. (2000) Gene Ontology: tool for the unification of biology. Nature genetics, 25, 25.
+Chou, Chih-Hung, et al. "miRTarBase 2016: updates to the experimentally validated miRNA-target interactions database." Nucleic acids research 44.D1 (2016): D239-D247.
+Clark, N.R. and Ma’ayan, A. (2011) Introduction to statistical methods to analyze large data sets: principal components analysis. Sci. Signal., 4, tr3-tr3.
+Clark, Neil R., et al. "The characteristic direction: a geometrical approach to identify differentially expressed genes." BMC bioinformatics 15.1 (2014): 79.
+Consortium, E.P. (2004) The ENCODE (ENCyclopedia of DNA elements) project. Science, 306, 636-640.
+Croft, David, et al. "The Reactome pathway knowledgebase." Nucleic acids research 42.D1 (2014): D472-D477.
+Duan, Q., et al. "L1000cds2: Lincs l1000 characteristic direction signatures search engine. NPJ Syst Biol Appl. 2016; 2: 16015." (2016).
+Fernandez, Nicolas F., et al. "Clustergrammer, a web-based heatmap visualization and analysis tool for high-dimensional biological data." Scientific data 4 (2017): 170151.
+Kanehisa, M. and Goto, S. (2000) KEGG: kyoto encyclopedia of genes and genomes. Nucleic acids research, 28, 27-30.
+Kelder, Thomas, et al. "WikiPathways: building research communities on biological pathways." Nucleic acids research 40.D1 (2012): D1301-D1307.
+Kuleshov, M.V., Jones, M.R., Rouillard, A.D., Fernandez, N.F., Duan, Q., Wang, Z., Koplev, S., Jenkins, S.L., Jagodnik, K.M. and Lachmann, A. (2016) Enrichr: a comprehensive gene set enrichment analysis web server 2016 update. Nucleic acids research, 44, W90-W97.
+Lachmann, A., Xu, H., Krishnan, J., Berger, S.I., Mazloom, A.R. and Ma'ayan, A. (2010) ChEA: transcription factor regulation inferred from integrating genome-wide ChIP-X experiments. Bioinformatics, 26, 2438-2444.
+Lachmann, Alexander, and Avi Ma'ayan. "KEA: kinase enrichment analysis." Bioinformatics 25.5 (2009): 684-686.
+Ritchie, Matthew E., et al. "limma powers differential expression analyses for RNA-sequencing and microarray studies." Nucleic acids research 43.7 (2015): e47-e47.
+Wang, Zichen, et al. "L1000FWD: fireworks visualization of drug-induced transcriptomic signatures." Bioinformatics 34.12 (2018): 2150-2152.
