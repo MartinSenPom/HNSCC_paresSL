@@ -1,4 +1,5 @@
 # ID de las tablas de BigQuery utilizadas por DAISY
+Los archivos CSV utilizados para generar dichas tablas pueden encontrarse en el sitio web del portal DepMap: https://depmap.org/portal.
 ## Para los datos ómicos procedentes de DepMap Public 20Q3 (son los que emplea el *script* DAISY_operations):
 * sample_info -> isb-cgc-bq.synthetic_lethality.sample_info_TCGAlabels_DepMapPublic_20Q3
 * CCLE_gene_expression-> isb-cgc-bq.DEPMAP.CCLE_gene_expression_DepMapPublic_current
