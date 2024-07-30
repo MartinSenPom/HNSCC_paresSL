@@ -1,0 +1,6 @@
+Número de nodos:	4
+Número de bordes:	0
+Grado medio de los nodos:	0.0
+Coeficiente de agrupamiento local:	0.0
+Número de bordes esperado:	0
+Valor p:	1.0

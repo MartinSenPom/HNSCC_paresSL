@@ -1,0 +1,6 @@
+Número de nodos:	1197
+Número de bordes:	10914
+Grado medio de los nodos:	18.24
+Coeficiente de agrupamiento local:	0.294
+Número de bordes esperado:	5793
+Valor p:	0.0
