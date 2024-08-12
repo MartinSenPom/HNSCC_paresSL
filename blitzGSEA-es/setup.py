@@ -5,18 +5,18 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="blitzgsea",
-    version="1.3.36",
+    version="1.3.46",
     author="Alexander Lachmann",
     author_email="alexander.lachmann@mssm.edu",
-    description="Paquete para el cálculo rápido y preciso del Análisis de Enriquecimiento de Conjuntos de Genes (GSEA), similar a la preordenación, utilizando una aproximación de distribución gamma.",
+    description="Package for fast and accurate calculation of Gene Set Enrichment Analysis (GSEA) similar to prerank using gamma distribution approximation.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/maayanlab/blitzgsea",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Lenguaje de programación :: Python :: 3",
-        "Licencia :: Aprobado por la ISO :: Licencia de software Apache",
-        "Sistema operativo :: Independiente del sistema operativo",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
     ],
     package_data={
         "blitzgsea": ["data/*"]
@@ -28,7 +28,8 @@ setuptools.setup(
         'scikit-learn',
         'tqdm',
         'statsmodels',
-        'mpmath'
+        'mpmath',
+        'matplotlib'
     ],
     python_requires='>=3.6',
 )
