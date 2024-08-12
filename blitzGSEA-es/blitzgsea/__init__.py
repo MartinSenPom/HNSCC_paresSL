@@ -45,8 +45,6 @@ def enrichment_score(abs_signature, signature_map, gene_set):
     number_hits = len(hits)
     number_miss = len(abs_signature) - number_hits
     sum_hit_scores = np.sum(abs_signature[hits])
-    if sum_hit_scores == 0:
-        return 0, 0
     norm_hit = float(1.0/sum_hit_scores)
     norm_no_hit = float(1.0/number_miss)
     running_sum = np.cumsum(hit_indicator * abs_signature * norm_hit - no_hit_indicator * norm_no_hit)
@@ -57,14 +55,11 @@ def enrichment_score(abs_signature, signature_map, gene_set):
 def enrichment_score_null(abs_signature, hit_indicator, number_hits):
     np.random.shuffle(hit_indicator)
     hits = np.where(hit_indicator == 1)[0]
-    no_hit_indicator = 1 - hit_indicator
     number_miss = len(abs_signature) - number_hits
     sum_hit_scores = np.sum(abs_signature[hits])
-    if sum_hit_scores == 0:
-        return 0
-    norm_hit = float(1.0/sum_hit_scores)
-    norm_no_hit = float(1.0/number_miss)
-    running_sum = np.cumsum(hit_indicator * abs_signature * norm_hit - no_hit_indicator * norm_no_hit)
+    norm_hit = 1.0/sum_hit_scores
+    norm_no_hit = 1.0/number_miss
+    running_sum = np.cumsum(hit_indicator * abs_signature * norm_hit - (1 - hit_indicator) * norm_no_hit)
     peak = np.abs(running_sum).argmax()
     es = running_sum[peak]
     return es
@@ -115,7 +110,7 @@ def estimate_parameters(signature, abs_signature, signature_map, library, permut
     
     ll = [len(library[l]) for l in library]
     nn = np.percentile(ll, q=np.linspace(2, 100, calibration_anchors))
-    anchor_set_sizes = sorted(list(set(np.append([1,4,6, np.min([max_size, np.max(ll)]), np.min([max_size, int(signature.shape[0]/2)]), np.min([max_size, signature.shape[0]-1])], nn).astype("int"))))
+    anchor_set_sizes = sorted(list(set(np.append([1,4,6,max_size, np.min([max_size, np.max(ll)]), np.min([max_size, int(signature.shape[0]/2)]), np.min([max_size, signature.shape[0]-1])], nn).astype("int"))))
     anchor_set_sizes = [int(x) for x in anchor_set_sizes if x < signature.shape[0]]
 
     if processes == 1:
@@ -197,14 +192,14 @@ def estimate_anchor_star(args):
 def estimate_anchor(signature, abs_signature, signature_map, set_size, permutations, symmetric, seed):
     es = np.array(get_peak_size_adv(abs_signature, set_size, permutations, seed))
     
-    pos = es[np.where(es > 0)[0]]
-    neg = es[np.where(es < 0)[0]]
+    pos = es[es > 0]
+    neg = es[es < 0]
 
     if (len(neg) < 250 or len(pos) < 250) and not symmetric:
-        symmetric = False
+        symmetric = True
     
     if symmetric:
-        aes = np.abs(es)
+        aes = np.abs(es)[es != 0]
         fit_alpha, fit_loc, fit_beta = gamma.fit(aes, floc=0)
         ks_pos = kstest(aes, 'gamma', args=(fit_alpha, fit_loc, fit_beta))[1]
         ks_neg = kstest(aes, 'gamma', args=(fit_alpha, fit_loc, fit_beta))[1]
@@ -229,7 +224,8 @@ def estimate_anchor(signature, abs_signature, signature_map, set_size, permutati
 
     return alpha_pos, beta_pos, ks_pos, alpha_neg, beta_neg, ks_neg, pos_ratio
 
-def gsea(signature, library, permutations: int=2000, anchors: int=20, min_size: int=5, max_size: int=4000, processes: int=4, plotting: bool=False, verbose: bool=False, progress: bool=False, symmetric: bool=True, signature_cache: bool=True, kl_threshold: float=0.3, kl_bins: int=200, shared_null: bool=False, seed: int=0, add_noise: bool=False, accuracy: int=40, deep_accuracy: int=50, center=True):
+
+def gsea(signature, library, permutations: int=1000, anchors: int=20, min_size: int=5, max_size: int=4000, processes: int=4, plotting: bool=False, verbose: bool=False, progress: bool=False, symmetric: bool=False, signature_cache: bool=True, kl_threshold: float=0.3, kl_bins: int=200, shared_null: bool=False, seed: int=0, add_noise: bool=False, accuracy: int=40, deep_accuracy: int=50, center=True):
     """
     Perform Gene Set Enrichment Analysis (GSEA) on the given signature and library.
 
@@ -256,6 +252,7 @@ def gsea(signature, library, permutations: int=2000, anchors: int=20, min_size: 
     Returns:
     array-like: Enrichment scores for each gene set in the library.
     """
+    
     if seed == -1:
         seed = random.randint(-10000000, 100000000)
 
@@ -269,8 +266,9 @@ def gsea(signature, library, permutations: int=2000, anchors: int=20, min_size: 
         if verbose:
             print('Low numer of permutations can lead to inaccurate p-value estimation. Consider increasing number of permutations.')
         symmetric = True
-
+    
     random.seed(seed)
+    np.random.seed(seed)
     sig_hash = hash(signature.to_string())
 
     # optionally noise can be added as a fraction of the expression values
@@ -311,7 +309,6 @@ def gsea(signature, library, permutations: int=2000, anchors: int=20, min_size: 
         }
     
     gsets = []
-
     keys = list(library.keys())
     signature_genes = set(signature.index)
 
@@ -338,24 +335,29 @@ def gsea(signature, library, permutations: int=2000, anchors: int=20, min_size: 
 
             if es > 0:
                 prob = gamma.cdf(es, float(pos_alpha), scale=float(pos_beta))
-                if prob > 0.999999999:
+                if prob > 0.999999999 or prob < 0.00000000001:
                     mp.dps = deep_accuracy
                     mp.prec = deep_accuracy
-                    prob = gammacdf(es, float(pos_alpha), float(pos_beta))
+                    prob = gammacdf(es, float(pos_alpha), float(pos_beta), dps=deep_accuracy)
                 prob_two_tailed = np.min([0.5,(1-np.min([prob*pos_ratio+1-pos_ratio,1]))])
-                if prob_two_tailed == 1:
-                    nes = 0
-                else:
-                    nes = invcdf(1-np.min([1,prob_two_tailed]))
+                nes = invcdf(1-np.min([1,prob_two_tailed]))
                 pval = 2*prob_two_tailed
             else:
                 prob = gamma.cdf(-es, float(pos_alpha), scale=float(pos_beta))
-                if prob > 0.999999999:
+                if prob > 0.999999999 or prob < 0.00000000001:
                     mp.dps = deep_accuracy
                     mp.prec = deep_accuracy
-                    prob = gammacdf(-es, float(pos_alpha), float(pos_beta))
+                    prob = gammacdf(-es, float(pos_alpha), float(pos_beta), dps=deep_accuracy)
                 prob_two_tailed = np.min([0.5,(1-np.min([(((prob)-(prob*pos_ratio))+pos_ratio),1]))])
+                if prob_two_tailed == 0.5:
+                    #print("help")
+                    prob_two_tailed = prob_two_tailed-prob
+
                 nes = invcdf(np.min([1,prob_two_tailed]))
+
+                if nes == 0:
+                    print("Fixy", k, es, prob, prob_two_tailed, gsize)
+
                 pval = 2*prob_two_tailed
             
             mp.dps = accuracy
