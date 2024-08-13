@@ -1,0 +1,23 @@
+input_mutations: lista de cadenas de caracteres, opcional, valores válidos: "Missense_Mutation", "Nonsense_Mutation","Translation_Start_Site", "Frame_Shift_Ins", "Splice_Site", "In_Frame_Del","Frame_Shift_Del", "Nonstop_Mutation", "In_Frame_Ins"
+1) Missense_Mutation: En genética, una mutación con cambio de sentido, de sentido erróneo o contrasentido, es un tipo de mutación puntual no sinónima en la cual se produce un cambio en un único nucleótido, provocando la aparición de un codón que codifica para un aminoácido diferente​.
+2) Nonsense_Mutation: En genética, una mutación sin sentido es un tipo de mutación puntual en una secuencia de ADN que provoca la aparición de un codón de terminación prematuro, llamado también codón sinsentido.
+3) Translation_Start_Site: Por lo general, se supone que las variantes que alteran las secuencias de iniciación de la traducción en genes predisponentes al cáncer son deletéreas. Sin embargo, pocos estudios han validado estas suposiciones con datos funcionales y clínicos.
+Es importante destacar que nuestros resultados ponen de relieve la necesidad de ser cautelosos a la hora de interpretar las consecuencias funcionales y clínicas de la variación que conduce a la interrupción del codón de iniciación, ya que la traducción puede no producirse necesariamente a partir del primer sitio de inicio alternativo aguas abajo, o a partir de un único sitio de inicio alternativo.
+4) Frameshift mutation: Una mutación por desplazamiento, desfase, corrimiento o cambio del marco de lectura es un tipo de mutación causado por la inserción o deleción de un número de nucleótidos que no es múltiplo de tres en una secuencia de ADN.
+* Frame_Shift_Ins (inserción).
+* Frame_Shift_Del (delección).
+5) Splice_Site: Una mutación del sitio de empalme es una mutación genética que inserta, elimina o cambia una cantidad de nucleótidos en el sitio específico en el que se produce el empalme durante el procesamiento del ARN mensajero precursor en ARN mensajero maduro.
+6) In-Frame mutation:
+* In_Frame_Del: Una deleción está dentro del marco si el marco de lectura del gen es preservado y no interrumpido, así que alguna proteína distrofina puede ser hecha. La proteína puede ser más corta de lo normal, pero todavía es funcional.
+* In_Frame_Ins: Las inserciones dentro del marco se producen cuando el marco de lectura no se altera como resultado de la inserción; el número de nucleótidos insertados es divisible por tres. El marco de lectura permanece intacto tras la inserción y lo más probable es que la traducción se complete si los nucleótidos insertados no codifican un codón de parada.
+7) Nonstop_Mutation: Una mutación nonstop, también llamada variante de parada, es una mutación puntual que se produce dentro de un codón de parada. Las mutaciones nonstop provocan la traducción continua de una cadena de ARNm en lo que debería ser una región no traducida. La mayoría de los polipéptidos resultantes de un gen con una mutación nonstop pierden su función debido a su extrema longitud y al impacto en el plegamiento normal.
+Así, descubrimos que las mutaciones sin parada pueden ser funcionalmente importantes en el cáncer y caracterizamos su impacto de pérdida de función en el supresor tumoral SMAD4.
+
+Todos los tipos de mutaciones seleccionables:
+input_mutations = ['Missense_Mutation', 'Nonsense_Mutation','Translation_Start_Site', 'Frame_Shift_Ins', 'Splice_Site',
+    'In_Frame_Del','Frame_Shift_Del', 'Nonstop_Mutation', 'In_Frame_Ins']
+Para DAISY_operations:
+input_mutations = ['Nonsense_Mutation', 'Frame_Shift_Ins', 'Frame_Shift_Del']
+Para DAISY_operations(V2):
+input_mutations = ['Missense_Mutation', 'Nonsense_Mutation', 'Frame_Shift_Del', 'Frame_Shift_Ins', 'In_Frame_Del', 'Splice_Site',
+     'Nonstop_Mutation']
