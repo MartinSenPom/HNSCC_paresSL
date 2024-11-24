@@ -241,7 +241,7 @@ ptyprocess==0.7.0
     #   terminado
 pure-eval==0.2.2
     # via stack-data
-pyarrow==6.0.1
+pyarrow==14.0.1
     # via
     #   db-dtypes
     #   pandas-gbq
