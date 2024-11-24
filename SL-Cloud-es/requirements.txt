@@ -86,12 +86,12 @@ googleapis-common-protos==1.55.0
     #   gcloud
     #   google-api-core
     #   grpcio-status
-grpcio==1.44.0
+grpcio==1.53.2
     # via
     #   google-api-core
     #   google-cloud-bigquery
     #   grpcio-status
-grpcio-status==1.44.0
+grpcio-status==Updated grpcio version required to fix security vulnerabilities.
     # via google-api-core
 httplib2==0.20.4
     # via
